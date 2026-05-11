@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Navbar from './components/Navbar';
 import Ticker from './components/Ticker';
-import Footer from './components/Footer';
+
 import Home from './pages/Home';
 import Nannies from './pages/Nannies';
 import Booking from './pages/Booking';
