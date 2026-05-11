@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/NannyNest/static/css/main.60b0f919.css",
+    "main.js": "/NannyNest/static/js/main.893c53e3.js",
+    "index.html": "/NannyNest/index.html",
+    "main.60b0f919.css.map": "/NannyNest/static/css/main.60b0f919.css.map",
+    "main.893c53e3.js.map": "/NannyNest/static/js/main.893c53e3.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.60b0f919.css",
+    "static/js/main.893c53e3.js"
+  ]
+}
