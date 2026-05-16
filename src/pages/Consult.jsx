@@ -1,49 +1,72 @@
 import { useState } from 'react';
 
 export default function Consult() {
-  const [form, setForm] = useState({ name:'', email:'', phone:'', msg:'' });
+  const [form, setForm] = useState({ name:'', email:'', phone:'', children:'', service:'', urgent: false, msg:'' });
   const [sent, setSent] = useState(false);
 
   return (
-    <div style={{ maxWidth: 1100, margin: '0 auto', padding: '64px 48px' }}>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'start' }}>
-        <div>
-          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, color: '#D4AF6E', marginBottom: 16 }}>FREE CONSULTATION</div>
-          <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 52, fontWeight: 300, lineHeight: 1.1, marginBottom: 28 }}>Let's find the<br /><em>right fit</em><br />for your family.</h2>
-          <p style={{ fontSize: 15, color: 'rgba(245,240,232,.45)', lineHeight: 1.9, marginBottom: 48 }}>Our experts will understand your schedule and match you with the ideal nanny — no obligation, no cost.</p>
-          <div style={{ border: '1px solid rgba(245,240,232,.08)' }}>
-            {[['📞','Direct Hotline','Mon–Sat, 8am–7pm'],['📧','Email Support','Reply within 2 hours'],['💬','Live Chat','Instant responses'],['🏠','Home Assessment','We visit your home']].map(([i,t,d]) => (
-              <div key={t} style={{ padding: '20px 24px', borderBottom: '1px solid rgba(245,240,232,.06)', display: 'flex', alignItems: 'center', gap: 16 }}>
-                <span style={{ fontSize: 22 }}>{i}</span>
-                <div>
-                  <div style={{ fontWeight: 700, fontSize: 14 }}>{t}</div>
-                  <div style={{ fontSize: 12, color: 'rgba(245,240,232,.35)', marginTop: 2 }}>{d}</div>
+    <div style={{ background: 'var(--teal-deeper)', padding: '80px 2rem', minHeight: '80vh' }}>
+      <div className="container">
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'start' }}>
+          <div>
+            <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: 2, color: 'var(--teal-mid)', textTransform: 'uppercase', marginBottom: 10 }}>Free consultation</div>
+            <h2 style={{ fontFamily: "'DM Serif Display',serif", fontSize: 'clamp(28px,4vw,42px)', color: 'white', lineHeight: 1.2, marginBottom: 16 }}>Let's find the<br />right fit for your family.</h2>
+            <p style={{ fontSize: 16, color: 'rgba(255,255,255,.7)', lineHeight: 1.75, marginBottom: '2rem' }}>Our founder personally handles every consultation. Tell us about your family's needs and we'll match you with the ideal caregiver — no obligation.</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              {[['📞','Direct line','204-510-3869 · Mon–Sat 8am–7pm'],['📧','Email us','info@tinytrustservices.ca'],['💬','WhatsApp','Message us for urgent requests'],['📍','Location','Calgary, Alberta, Canada']].map(([i,t,d]) => (
+                <div key={t} style={{ background: 'rgba(255,255,255,.08)', border: '1px solid rgba(255,255,255,.15)', borderRadius: 12, padding: '1rem 1.25rem', display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
+                  <span style={{ fontSize: 22 }}>{i}</span>
+                  <div>
+                    <div style={{ fontSize: 15, fontWeight: 600, color: 'white', marginBottom: 4 }}>{t}</div>
+                    <div style={{ fontSize: 13, color: 'rgba(255,255,255,.6)' }}>{d}</div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
 
-        <div>
-          {sent ? (
-            <div style={{ textAlign: 'center', padding: '64px 40px', border: '1px solid rgba(212,175,110,.2)', background: 'rgba(212,175,110,.04)' }} className="fi">
-              <div style={{ fontSize: 48, marginBottom: 20 }}>✉️</div>
-              <h3 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 34, fontWeight: 300, marginBottom: 12 }}>Message Sent</h3>
-              <p style={{ fontSize: 14, color: 'rgba(245,240,232,.45)', marginBottom: 32 }}>Thank you, <strong style={{ color: '#F5F0E8' }}>{form.name}</strong>. We'll be in touch within 24 hours.</p>
-              <button className="btn btn-ghost" onClick={() => { setSent(false); setForm({name:'',email:'',phone:'',msg:''}); }}>SEND ANOTHER →</button>
-            </div>
-          ) : (
-            <div style={{ padding: '40px', background: '#111', border: '1px solid rgba(245,240,232,.08)' }}>
-              <h3 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 28, fontWeight: 300, marginBottom: 32 }}>Send a Message</h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
-                <div><label>Your Name</label><input placeholder="Full name" value={form.name} onChange={e => setForm({...form,name:e.target.value})} /></div>
-                <div><label>Email</label><input type="email" placeholder="you@email.com" value={form.email} onChange={e => setForm({...form,email:e.target.value})} /></div>
-                <div><label>Phone</label><input placeholder="+1 000 000 0000" value={form.phone} onChange={e => setForm({...form,phone:e.target.value})} /></div>
-                <div><label>How can we help?</label><textarea rows={4} placeholder="Tell us about your family and childcare needs..." value={form.msg} onChange={e => setForm({...form,msg:e.target.value})} /></div>
-                <button className="btn btn-gold" style={{ justifyContent: 'center' }} disabled={!form.name||!form.email||!form.msg} onClick={() => setSent(true)}>SEND MESSAGE →</button>
+          <div style={{ background: 'white', borderRadius: 20, padding: '2rem' }}>
+            {sent ? (
+              <div style={{ textAlign: 'center', padding: '3rem 1rem' }} className="fi">
+                <div style={{ fontSize: 52, marginBottom: 16 }}>🎉</div>
+                <h3 style={{ fontFamily: "'DM Serif Display',serif", fontSize: 28, color: 'var(--teal-deeper)', marginBottom: 12 }}>Message received!</h3>
+                <p style={{ fontSize: 15, color: 'var(--text-mid)', marginBottom: 28 }}>Thank you, <strong>{form.name}</strong>. Our founder will reach out within 24 hours.</p>
+                <button className="btn-primary" onClick={() => { setSent(false); setForm({ name:'',email:'',phone:'',children:'',service:'',urgent:false,msg:'' }); }}>Send another message</button>
               </div>
-            </div>
-          )}
+            ) : (
+              <>
+                <h4 style={{ fontFamily: "'DM Serif Display',serif", fontSize: 22, color: 'var(--teal-deeper)', marginBottom: '1.5rem' }}>Get in touch</h4>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
+                  <div><label>Your name</label><input placeholder="Jane Smith" value={form.name} onChange={e=>setForm({...form,name:e.target.value})} /></div>
+                  <div><label>Phone</label><input placeholder="(204) 000-0000" value={form.phone} onChange={e=>setForm({...form,phone:e.target.value})} /></div>
+                </div>
+                <div style={{ marginBottom: '1rem' }}><label>Email</label><input type="email" placeholder="you@email.com" value={form.email} onChange={e=>setForm({...form,email:e.target.value})} /></div>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
+                  <div><label>Number of children</label>
+                    <select value={form.children} onChange={e=>setForm({...form,children:e.target.value})}>
+                      <option value="">Select</option>
+                      {[1,2,3,4,5].map(n=><option key={n} value={n}>{n} child{n>1?'ren':''}</option>)}
+                    </select>
+                  </div>
+                  <div><label>Service needed</label>
+                    <select value={form.service} onChange={e=>setForm({...form,service:e.target.value})}>
+                      <option value="">Select</option>
+                      {['After-school care','Overnight care','Special needs support','Newborn care','Live-in nanny','Urgent placement'].map(s=><option key={s} value={s}>{s}</option>)}
+                    </select>
+                  </div>
+                </div>
+                <div onClick={()=>setForm({...form,urgent:!form.urgent})} style={{ background: form.urgent?'var(--coral-light)':'#fafafa', border: `1.5px solid ${form.urgent?'var(--coral-mid)':'var(--border)'}`, borderRadius: 10, padding: '1rem', display: 'flex', alignItems: 'center', gap: '.75rem', marginBottom: '1rem', cursor: 'pointer' }}>
+                  <input type="checkbox" checked={form.urgent} onChange={()=>{}} style={{ width:18,height:18,accentColor:'var(--coral)',cursor:'pointer' }} />
+                  <div>
+                    <span style={{ fontSize: 14, fontWeight: 600, color: 'var(--coral)' }}>⚡ This is an urgent request</span>
+                    <div style={{ fontSize: 12, color: 'var(--text-mid)', marginTop: 2 }}>We'll prioritise your request for same-day or next-day placement</div>
+                  </div>
+                </div>
+                <div style={{ marginBottom: '1.25rem' }}><label>Tell us more</label><textarea rows={3} placeholder="Ages of children, schedule, any special needs or requirements..." value={form.msg} onChange={e=>setForm({...form,msg:e.target.value})} style={{ resize: 'vertical', minHeight: 90 }} /></div>
+                <button className="btn-primary" style={{ width: '100%', padding: 14, fontSize: 15 }} disabled={!form.name||!form.email||!form.msg} onClick={() => setSent(true)}>Send message →</button>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </div>

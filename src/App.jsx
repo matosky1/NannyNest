@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Navbar from './components/Navbar';
 import Ticker from './components/Ticker';
-
+import Footer from './components/Footer';
 import Home from './pages/Home';
 import Nannies from './pages/Nannies';
 import Booking from './pages/Booking';
@@ -20,13 +20,16 @@ export default function App() {
   };
 
   return (
-    <div>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <Ticker />
       <Navbar page={page} go={go} />
-      {page === 'home'    && <Home    go={go} onBook={handleBook} />}
-      {page === 'nannies' && <Nannies go={go} onBook={handleBook} />}
-      {page === 'book'    && <Booking go={go} nanny={selectedNanny} />}
-      {page === 'consult' && <Consult />}
+      <main style={{ flex: 1 }}>
+        {page === 'home'    && <Home    go={go} onBook={handleBook} />}
+        {page === 'nannies' && <Nannies go={go} onBook={handleBook} />}
+        {page === 'book'    && <Booking go={go} nanny={selectedNanny} />}
+        {page === 'consult' && <Consult />}
+      </main>
+      <Footer />
     </div>
   );
 }

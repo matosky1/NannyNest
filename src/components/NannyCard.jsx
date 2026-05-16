@@ -1,31 +1,34 @@
 export default function NannyCard({ n, onBook, full }) {
+  const days = ['Mo','Tu','We','Th','Fr','Sa','Su'];
   return (
-    <div className="ncard" style={{ padding: '28px' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 20 }}>
-        <div style={{ width: 50, height: 50, background: n.accent+'18', border: `1px solid ${n.accent}44`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: 15, color: n.accent }}>{n.avatar}</div>
-        <div style={{ textAlign: 'right' }}>
-          <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 32, fontWeight: 300, color: '#D4AF6E', lineHeight: 1 }}>${n.rate}</div>
-          <div style={{ fontSize: 9, letterSpacing: 2, color: 'rgba(245,240,232,.3)', fontWeight: 700 }}>/HOUR</div>
+    <div style={{ background: 'white', border: '1px solid var(--border)', borderRadius: 16, padding: '1.5rem', transition: 'transform .2s, box-shadow .2s' }}
+      onMouseEnter={e => { e.currentTarget.style.transform='translateY(-3px)'; e.currentTarget.style.boxShadow='0 10px 28px rgba(0,0,0,.07)'; }}
+      onMouseLeave={e => { e.currentTarget.style.transform='none'; e.currentTarget.style.boxShadow='none'; }}>
+      <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', marginBottom: 12 }}>
+        <div style={{ width: 52, height: 52, borderRadius: '50%', background: n.accent, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'DM Serif Display',serif", fontSize: 18, color: 'white', flexShrink: 0, position: 'relative' }}>
+          {n.avatar}
+          <div style={{ position: 'absolute', bottom: 2, right: 2, width: 11, height: 11, borderRadius: '50%', background: n.available ? '#22c55e' : '#d1d5db', border: '2px solid white' }} />
+        </div>
+        <div>
+          <div style={{ fontSize: 15, fontWeight: 600 }}>{n.name}</div>
+          <div style={{ fontSize: 12, color: 'var(--text-light)', marginTop: 2 }}>📍 {n.location}</div>
+          <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--teal)', marginTop: 3 }}>${n.rate}/hr · <span style={{ fontWeight: 400, color: '#999', fontSize: 12 }}>{n.experience} yrs</span></div>
         </div>
       </div>
-      <div style={{ marginBottom: 6, display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
-        <span style={{ fontWeight: 700, fontSize: 16 }}>{n.name}</span>
-        <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: 1.5, color: n.accent, background: n.accent+'18', padding: '3px 8px' }}>{n.badge}</span>
+      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 10 }}>
+        {n.specialties.map(s => <span key={s} style={{ background: 'var(--teal-light)', color: 'var(--teal-dark)', borderRadius: 20, padding: '3px 10px', fontSize: 11, fontWeight: 700 }}>{s}</span>)}
+        {n.urgent && <span style={{ background: 'var(--coral-light)', color: 'var(--coral)', borderRadius: 20, padding: '3px 10px', fontSize: 11, fontWeight: 700 }}>Urgent available</span>}
       </div>
-      <div style={{ fontSize: 12, color: 'rgba(245,240,232,.4)', marginBottom: 16 }}>★ {n.rating} ({n.reviews}) · {n.experience} yrs experience</div>
-      {full && <p style={{ fontSize: 12, color: 'rgba(245,240,232,.4)', lineHeight: 1.7, marginBottom: 16 }}>{n.bio}</p>}
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 20 }}>
-        {n.specialties.map(s => <span key={s} className="tag">{s}</span>)}
+      {full && <p style={{ fontSize: 13, color: 'var(--text-mid)', lineHeight: 1.6, marginBottom: 10 }}>{n.bio}</p>}
+      <div style={{ fontSize: 10, fontWeight: 700, color: '#aaa', letterSpacing: .5, marginBottom: 6 }}>AVAILABLE DAYS</div>
+      <div style={{ display: 'flex', gap: 4, marginBottom: 12 }}>
+        {days.map((d,i) => (
+          <div key={d} style={{ width: 28, height: 28, borderRadius: 6, fontSize: 10, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', background: n.days[i] ? 'var(--teal-light)' : '#f4f4f4', color: n.days[i] ? 'var(--teal-dark)' : '#ccc' }}>{d}</div>
+        ))}
       </div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: 16, borderTop: '1px solid rgba(245,240,232,.06)' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-          <div style={{ width: 6, height: 6, borderRadius: '50%', background: n.available ? '#8FC4A2' : 'rgba(245,240,232,.2)' }}/>
-          <span style={{ fontSize: 10, letterSpacing: 1.5, fontWeight: 700, color: n.available ? '#8FC4A2' : 'rgba(245,240,232,.25)' }}>{n.available ? 'AVAILABLE' : 'BOOKED'}</span>
-        </div>
-        {n.available && (
-          <button className="btn btn-gold" style={{ padding: '9px 18px', fontSize: 10 }} onClick={() => onBook(n)}>BOOK →</button>
-        )}
-      </div>
+      <button className="btn-primary" style={{ width: '100%', padding: 10, fontSize: 13, borderRadius: 8 }} disabled={!n.available} onClick={() => onBook(n)}>
+        {n.available ? `Book ${n.name.split(' ')[0]} →` : 'Currently Unavailable'}
+      </button>
     </div>
   );
 }
